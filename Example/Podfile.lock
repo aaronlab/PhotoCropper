@@ -1,16 +1,47 @@
 PODS:
-  - PhotoCropper (0.1.0)
+  - PhotoCropper (0.1.0):
+    - RxCocoa (~> 6.0)
+    - RxGesture (~> 4.0)
+    - RxSwift (~> 6.0)
+    - SnapKit (~> 5.0)
+    - Then (~> 2.0)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxGesture (4.0.2):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
+  - SnapKit (5.0.1)
+  - Then (2.7.0)
 
 DEPENDENCIES:
   - PhotoCropper (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - RxCocoa
+    - RxGesture
+    - RxRelay
+    - RxSwift
+    - SnapKit
+    - Then
 
 EXTERNAL SOURCES:
   PhotoCropper:
     :path: "../"
 
 SPEC CHECKSUMS:
-  PhotoCropper: 3606022de7b02e103c8c8e0eb96988ec23e39723
+  PhotoCropper: 85979f7cdc80562758806279d8f7289329a3d8d1
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 43a8d912ca8a81b628a412cda8e46fe318708ca1
+PODFILE CHECKSUM: a8ff53844e7453c10c6bca3df617cb4abcf84274
 
 COCOAPODS: 1.11.2
