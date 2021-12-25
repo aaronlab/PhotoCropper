@@ -1,0 +1,16 @@
+PODS:
+  - PhotoCropper (0.1.0)
+
+DEPENDENCIES:
+  - PhotoCropper (from `../`)
+
+EXTERNAL SOURCES:
+  PhotoCropper:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  PhotoCropper: 3606022de7b02e103c8c8e0eb96988ec23e39723
+
+PODFILE CHECKSUM: 43a8d912ca8a81b628a412cda8e46fe318708ca1
+
+COCOAPODS: 1.11.2
