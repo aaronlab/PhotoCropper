@@ -24,7 +24,7 @@ This would be appropriate when limiting crop rate control to users.
 
   s.requires_arc = true
 
-  s.ios.deployment_target = '5.0'
+  s.swift_versions = '5.0'
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'PhotoCropper/Classes/**/*'

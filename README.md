@@ -13,6 +13,10 @@ which doesn't support customized resizing by users.
 
 This would be appropriate when limiting crop rate control to users.
 
+## Preview
+
+[![Preview](./res/preview.gif)](./res/preview.gif)
+
 ## Requirements
 
 - Swift 5
