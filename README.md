@@ -7,7 +7,7 @@
 [![Version](https://img.shields.io/cocoapods/v/PhotoCropper.svg?style=flat)](https://cocoapods.org/pods/PhotoCropper)
 [![License](https://img.shields.io/cocoapods/l/PhotoCropper.svg?style=flat)](https://cocoapods.org/pods/PhotoCropper)
 
-This is a simple image crop library for iOS on Christmas🎅 🎄for fun based on RxSwift,
+This is a simple image crop library for iOS I made for fun on Christmas🎅 🎄 based on RxSwift,
 
 which doesn't support customized resizing by users.
 
