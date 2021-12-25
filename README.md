@@ -68,6 +68,9 @@ In Xcode, add as Swift package with this URL: `https://github.com/aaronLab/Photo
    - e.g. `PhotoCropper.shared.ratio.accept(2 / 3)`
    - **_2 / 3 means 2:3 ratio of the size._**
 
+7. Now you can crop the image using `PhtoCropperView.crop: PublishSubject<Void>`
+   - To do this, you can bind a button or send a signal manually like this: `PhotoCropoerVirw.crop.onNext(())`
+
 ## Customization
 
 ### PhotoCropper
@@ -76,7 +79,7 @@ A singleton configuration instance.
 
 > ⚠️ You should change the values before you initialize the view except the ratio and cornerRadius whose type is `BehaviorRelay<CGFloat>`.
 
-`PhotoCropper.shared...`
+You can change the valuse like this: `PhotoCropper.shared.<PROPERTY_NAME>`
 
 ```swift
 /// The crop ratio
@@ -136,7 +139,7 @@ Appearance configurations.
 
 > You can change the values from `PhotoCropper` singleton instance.
 
-`PhotoCropper.shared.appearance...`
+`PhotoCropper.shared.appearance.<PROPERTY_NAME>`
 
 ```swift
 /// Corner radius of the frame.
