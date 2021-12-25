@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint PhotoCropper.podspec' to ensure this is a
+# Be sure to run `pod lib lint DynamicBottomSheet.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -9,34 +9,29 @@
 Pod::Spec.new do |s|
   s.name             = 'PhotoCropper'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of PhotoCropper.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'A simple image crop library for iOS'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+This is a simple image crop library for iOS on Christmas🎅 🎄for fun based on RxSwift,
+which doesn't support customized resizing by users.
+This would be appropriate when limiting crop rate control to users.
                        DESC
 
-  s.homepage         = 'https://github.com/Aaron Lee/PhotoCropper'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/aaronLab/PhotoCropper'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Aaron Lee' => 'aaronlab.net@gmail.com' }
-  s.source           = { :git => 'https://github.com/Aaron Lee/PhotoCropper.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'https://github.com/aaronLab/PhotoCropper.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.requires_arc = true
+
+  s.ios.deployment_target = '5.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'PhotoCropper/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'PhotoCropper' => ['PhotoCropper/Assets/*.png']
-  # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'RxSwift', '~> 6.0'
+  s.dependency 'RxCocoa', '~> 6.0'
+  s.dependency 'RxGesture', '~> 4.0'
+  s.dependency 'SnapKit', '~> 5.0'
+  s.dependency 'Then', '~> 2.0'
 end
