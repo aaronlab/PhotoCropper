@@ -22,7 +22,12 @@ class ViewController: UIViewController {
                                            target: nil,
                                            action: nil)
   
-  private var photoCropperView = PhotoCropperView(with: UIImage(named: "image"))
+  private var photoCropperView = PhotoCropperView()
+    .then {
+      let names = ["image1", "image2", "image3", "image4"]
+      guard let imageName = names.randomElement() else { return }
+      $0.imageView.image = UIImage(named: imageName)
+    }
   
   private var stackView = UIStackView()
     .then {
