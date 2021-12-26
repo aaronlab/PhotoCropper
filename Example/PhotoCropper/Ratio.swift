@@ -19,39 +19,34 @@ enum Ratio: String, CaseIterable {
 }
 
 extension Ratio {
-  
   func description(by orientation: Orientation) -> String {
-    
     switch orientation {
     case .landscape:
       return rawValue
     case .portrait:
       var split = rawValue.split(separator: ":")
-      
+
       split.swapAt(0, split.count - 1)
-      
+
       let newRawValue = split.joined(separator: ":")
-      
+
       return newRawValue
     }
-    
   }
-  
+
   func ratio(by orientation: Orientation) -> CGFloat {
     let description = description(by: orientation).split(separator: ":")
-    
+
     guard let left = description.first,
           let leftDouble = Double(String(left)),
           let right = description.last,
           let rightDouble = Double(String(right)) else {
-            return 1
-          }
-    
+      return 1
+    }
+
     let leftCGFloat = CGFloat(leftDouble)
     let rightCGFloat = CGFloat(rightDouble)
-    
+
     return leftCGFloat / rightCGFloat
-    
   }
-  
 }
