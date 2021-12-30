@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACD81AFB9204008FA782 /* RatioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* RatioViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		A402B74A27778A2600C66260 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402B74927778A2600C66260 /* Orientation.swift */; };
 		A402B74C27778A3700C66260 /* Ratio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402B74B27778A3700C66260 /* Ratio.swift */; };
 		A402B74E27778A5500C66260 /* ResultImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402B74D27778A5500C66260 /* ResultImageViewController.swift */; };
+		A4B7EEE1277DBE5F00EC18BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B7EEE0277DBE5F00EC18BE /* ViewController.swift */; };
+		A4B7EEE5277DBF6300EC18BE /* CustomizableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B7EEE4277DBF6300EC18BE /* CustomizableViewController.swift */; };
 		DD453D4DBB2BD6EB42761DC1 /* Pods_PhotoCropper_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4A7317FBE0F164F412318C /* Pods_PhotoCropper_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,13 +29,15 @@
 		607FACD01AFB9204008FA782 /* PhotoCropper_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoCropper_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* RatioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioViewController.swift; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		63BAB47557DB8678FF992467 /* Pods-PhotoCropper_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoCropper_Example.debug.xcconfig"; path = "Target Support Files/Pods-PhotoCropper_Example/Pods-PhotoCropper_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		A402B74927778A2600C66260 /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
 		A402B74B27778A3700C66260 /* Ratio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ratio.swift; sourceTree = "<group>"; };
 		A402B74D27778A5500C66260 /* ResultImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultImageViewController.swift; sourceTree = "<group>"; };
+		A4B7EEE0277DBE5F00EC18BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A4B7EEE4277DBF6300EC18BE /* CustomizableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableViewController.swift; sourceTree = "<group>"; };
 		BE9E4C09E72867AEAE53CF7B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F3F9F581F7867142ED0EB3DF /* Pods_PhotoCropper_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoCropper_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -73,7 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				A4B7EEE0277DBE5F00EC18BE /* ViewController.swift */,
+				607FACD71AFB9204008FA782 /* RatioViewController.swift */,
+				A4B7EEE4277DBF6300EC18BE /* CustomizableViewController.swift */,
 				A402B74D27778A5500C66260 /* ResultImageViewController.swift */,
 				A402B74927778A2600C66260 /* Orientation.swift */,
 				A402B74B27778A3700C66260 /* Ratio.swift */,
@@ -253,7 +259,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				A4B7EEE1277DBE5F00EC18BE /* ViewController.swift in Sources */,
+				A4B7EEE5277DBF6300EC18BE /* CustomizableViewController.swift in Sources */,
+				607FACD81AFB9204008FA782 /* RatioViewController.swift in Sources */,
 				A402B74E27778A5500C66260 /* ResultImageViewController.swift in Sources */,
 				A402B74C27778A3700C66260 /* Ratio.swift in Sources */,
 				A402B74A27778A2600C66260 /* Orientation.swift in Sources */,

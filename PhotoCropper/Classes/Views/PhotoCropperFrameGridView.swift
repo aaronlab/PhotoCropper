@@ -14,7 +14,7 @@ import UIKit
 open class PhotoCropperFrameGridView: UIView {
   // MARK: - Public Properties
 
-  /// Content view
+  /// Grid lines container
   public var gridLines = UIView()
     .then {
       $0.alpha = 0
@@ -56,7 +56,7 @@ open class PhotoCropperFrameGridView: UIView {
 
   /// Layout view
   open func layoutView() {
-    layoutContentView()
+    layoutGridView()
     layoutGrids()
   }
 
@@ -89,9 +89,9 @@ extension PhotoCropperFrameGridView {
 
 extension PhotoCropperFrameGridView {
   /// Layout content view
-  private func layoutContentView() {
+  private func layoutGridView() {
     gridLines.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.top.leading.trailing.bottom.equalToSuperview()
     }
   }
 

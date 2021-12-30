@@ -5,6 +5,7 @@
 //  Created by Aaron Lee on 2021/12/24.
 //
 
+import RxGesture
 import RxSwift
 import SnapKit
 import Then
@@ -15,7 +16,7 @@ open class PhotoCropperView: UIView {
   // MARK: - Public Properties
 
   /// Scroll view
-  public private(set) var scrollView = PhotoCropperScrollView()
+  public var scrollView = PhotoCropperScrollView()
 
   /// Crop image trigger
   public private(set) var crop = PublishSubject<Void>()
@@ -26,31 +27,97 @@ open class PhotoCropperView: UIView {
   /// Image view
   ///
   /// The default contentMode is `.scaleAspectFit`
-  public private(set) var imageView: UIImageView = .init()
+  public var imageView: UIImageView = .init()
     .then {
       $0.contentMode = .scaleAspectFit
     }
 
   /// Grid view
-  public private(set) var gridView = PhotoCropperFrameGridView()
+  public var gridView = PhotoCropperFrameGridView()
     .then {
       $0.isUserInteractionEnabled = false
     }
 
   /// Overlay
-  public private(set) var overlayView = PhotoCropperOverlayView()
+  public var overlayView = PhotoCropperOverlayView()
+
+  /// Top left edge button
+  public var topLeftEdgeButton = PhotoCropperEdgeButton(with: .topLeft)
+    .then {
+      $0.isHidden = !PhotoCropper.shared.isCustomizedSizeEnabled
+    }
+
+  /// Top right edge button
+  public var topRightEdgeButton = PhotoCropperEdgeButton(with: .topRight)
+    .then {
+      $0.isHidden = !PhotoCropper.shared.isCustomizedSizeEnabled
+    }
+
+  /// Bottom left edge button
+  public var bottomLeftEdgeButton = PhotoCropperEdgeButton(with: .bottomLeft)
+    .then {
+      $0.isHidden = !PhotoCropper.shared.isCustomizedSizeEnabled
+    }
+
+  /// Bottom right edge button
+  public var bottomRightEdgeButton = PhotoCropperEdgeButton(with: .bottomRight)
+    .then {
+      $0.isHidden = !PhotoCropper.shared.isCustomizedSizeEnabled
+    }
 
   // MARK: - Internal Properties
 
+  internal var bag = DisposeBag()
+
   internal var lastScale: CGFloat = .zero
 
-  // MARK: - Private Properties
+  internal var topLeftEdgeButtonTop: Constraint!
+  internal var topLeftEdgeButtonTopConstant: CGFloat {
+    return topLeftEdgeButtonTop?.constant ?? .zero
+  }
 
-  private var bag = DisposeBag()
+  internal var topLeftEdgeButtonLeading: Constraint!
+  internal var topLeftEdgeButtonLeadingConstant: CGFloat {
+    return topLeftEdgeButtonLeading?.constant ?? .zero
+  }
+
+  internal var topRightEdgeButtonTop: Constraint!
+  internal var topRightEdgeButtonTopConstant: CGFloat {
+    return topRightEdgeButtonTop?.constant ?? .zero
+  }
+
+  internal var topRightEdgeButtonTrailing: Constraint!
+  internal var topRightEdgeButtonTrailingConstant: CGFloat {
+    return topRightEdgeButtonTrailing?.constant ?? .zero
+  }
+
+  internal var bottomLeftEdgeButtonBottom: Constraint!
+  internal var bottomLeftEdgeButtonBottomConstant: CGFloat {
+    return bottomLeftEdgeButtonBottom?.constant ?? .zero
+  }
+
+  internal var bottomLeftEdgeButtonLeading: Constraint!
+  internal var bottomLeftEdgeButtonLeadingConstant: CGFloat {
+    return bottomLeftEdgeButtonLeading?.constant ?? .zero
+  }
+
+  internal var bottomRightEdgeButtonBottom: Constraint!
+  internal var bottomRightEdgeButtonBottomConstant: CGFloat {
+    bottomRightEdgeButtonBottom?.constant ?? .zero
+  }
+
+  internal var bottomRightEdgeButtonTrailing: Constraint!
+  internal var bottomRightEdgeButtonTrailingConstant: CGFloat {
+    return bottomRightEdgeButtonTrailing?.constant ?? .zero
+  }
+
+  // MARK: - Private Properties
 
   private var ratioChanged: Bool = false
 
   private var lastOrientation: UIDeviceOrientation?
+
+  private let edgeButtonWidth = PhotoCropper.shared.appearance.edgeButtonWidth
 
   // MARK: - Init
 
@@ -132,6 +199,12 @@ open class PhotoCropperView: UIView {
 
     // Overlay
     addSubview(overlayView)
+
+    // Edges
+    addSubview(topLeftEdgeButton)
+    addSubview(topRightEdgeButton)
+    addSubview(bottomLeftEdgeButton)
+    addSubview(bottomRightEdgeButton)
   }
 
   // MARK: - Layout
@@ -141,6 +214,7 @@ open class PhotoCropperView: UIView {
     layoutImageView()
     layoutGridView()
     layoutOverlayView()
+    layoutEdgeButtons()
   }
 
   // MARK: - Bind
@@ -149,6 +223,7 @@ open class PhotoCropperView: UIView {
     bindRatio()
     bindCrop()
     bindScrollViewGestures()
+    bindEdgeButtonGestures()
   }
 }
 
@@ -185,6 +260,46 @@ extension PhotoCropperView {
   private func layoutOverlayView() {
     overlayView.snp.makeConstraints {
       $0.edges.equalToSuperview()
+    }
+  }
+
+  /// Layout edge buttons
+  private func layoutEdgeButtons() {
+    layoutTopLeftEdgeButton()
+    layoutTopRightEdgeButton()
+    layoutBottomLeftEdgeButton()
+    layoutBottomRightEdgeButton()
+  }
+
+  private func layoutTopLeftEdgeButton() {
+    topLeftEdgeButton.snp.makeConstraints {
+      topLeftEdgeButtonTop = $0.top.equalTo(gridView).constraint
+      topLeftEdgeButtonLeading = $0.leading.equalTo(gridView).constraint
+      $0.width.height.equalTo(edgeButtonWidth)
+    }
+  }
+
+  private func layoutTopRightEdgeButton() {
+    topRightEdgeButton.snp.makeConstraints {
+      topRightEdgeButtonTop = $0.top.equalTo(gridView).constraint
+      topRightEdgeButtonTrailing = $0.trailing.equalTo(gridView).constraint
+      $0.width.height.equalTo(edgeButtonWidth)
+    }
+  }
+
+  private func layoutBottomLeftEdgeButton() {
+    bottomLeftEdgeButton.snp.makeConstraints {
+      bottomLeftEdgeButtonBottom = $0.bottom.equalTo(gridView).constraint
+      bottomLeftEdgeButtonLeading = $0.leading.equalTo(gridView).constraint
+      $0.width.height.equalTo(edgeButtonWidth)
+    }
+  }
+
+  private func layoutBottomRightEdgeButton() {
+    bottomRightEdgeButton.snp.makeConstraints {
+      bottomRightEdgeButtonBottom = $0.bottom.equalTo(gridView).constraint
+      bottomRightEdgeButtonTrailing = $0.trailing.equalTo(gridView).constraint
+      $0.width.height.equalTo(edgeButtonWidth)
     }
   }
 }

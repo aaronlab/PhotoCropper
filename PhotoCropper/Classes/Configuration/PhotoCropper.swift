@@ -17,8 +17,15 @@ public final class PhotoCropper {
 
   public private(set) static var shared = PhotoCropper()
 
+  // MARK: - Others
+
   /// The crop ratio
   public private(set) var ratio: BehaviorRelay<CGFloat> = BehaviorRelay(value: 1 / 1)
+
+  /// Customized size & ratio support is enabled.
+  ///
+  /// Default value is `true`
+  public var isCustomizedSizeEnabled: Bool = true
 
   // MARK: - Scales
 

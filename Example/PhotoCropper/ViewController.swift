@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  PhotoCropper
+//  PhotoCropper_Example
 //
-//  Created by Aaron Lee on 12/26/2021.
-//  Copyright (c) 2021 Aaron Lee. All rights reserved.
+//  Created by Aaron Lee on 2021/12/30.
+//  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
 import PhotoCropper
@@ -17,32 +17,23 @@ import UIKit
 class ViewController: UIViewController {
   private var bag = DisposeBag()
 
-  private var doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                           target: nil,
-                                           action: nil)
-
-  private var photoCropperView = PhotoCropperView()
-    .then {
-      let names = ["image1", "image2", "image3", "image4"]
-      guard let imageName = names.randomElement() else { return }
-      $0.imageView.image = UIImage(named: imageName)
-    }
-
-  private var stackView = UIStackView()
+  private let stackView = UIStackView()
     .then {
       $0.axis = .vertical
-      $0.spacing = 8
-      $0.distribution = .fill
+      $0.spacing = 16
       $0.alignment = .fill
+      $0.distribution = .fill
     }
 
-  private var orientationSegmentedControl = UISegmentedControl(
-    items: Orientation.allCases.map { $0.rawValue }
-  )
+  private let ratioButton = UIButton(type: .system)
+    .then {
+      $0.setTitle("Restricted Ratio", for: .normal)
+    }
 
-  private var ratioSegmentedControl = UISegmentedControl(
-    items: Ratio.allCases.map { $0.description(by: .landscape) }
-  )
+  private let customizableButton = UIButton(type: .system)
+    .then {
+      $0.setTitle("Customizable", for: .normal)
+    }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -57,14 +48,17 @@ class ViewController: UIViewController {
 
 extension ViewController {
   private func configureView() {
-    title = "PhotoCropper Example"
-    navigationItem.rightBarButtonItem = doneButton
+    title = "PhotoCropper Examples"
 
     if #available(iOS 13.0, *) {
       view.backgroundColor = .systemBackground
     } else {
       view.backgroundColor = .white
     }
+
+    view.addSubview(stackView)
+    stackView.addArrangedSubview(ratioButton)
+    stackView.addArrangedSubview(customizableButton)
   }
 }
 
@@ -72,35 +66,20 @@ extension ViewController {
 
 extension ViewController {
   private func layoutView() {
-    view.addSubview(photoCropperView)
-    view.addSubview(stackView)
-
-    layoutPhotoCropperView()
     layoutStackView()
-    layoutSegmentedControls()
-  }
-
-  private func layoutPhotoCropperView() {
-    photoCropperView.snp.makeConstraints {
-      $0.top.leading.equalTo(view.safeAreaLayoutGuide)
-      $0.trailing.equalTo(view.safeAreaLayoutGuide)
-      $0.bottom.equalTo(stackView.snp.top)
-    }
+    layoutButtons()
   }
 
   private func layoutStackView() {
     stackView.snp.makeConstraints {
-      $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
-      $0.trailing.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+      $0.centerY.leading.trailing.equalToSuperview()
     }
   }
 
-  private func layoutSegmentedControls() {
-    [orientationSegmentedControl, ratioSegmentedControl].forEach {
-      $0.selectedSegmentIndex = 0
-      stackView.addArrangedSubview($0)
+  private func layoutButtons() {
+    [ratioButton, customizableButton].forEach {
       $0.snp.makeConstraints {
-        $0.height.equalTo(30)
+        $0.height.equalTo(48)
       }
     }
   }
@@ -111,7 +90,6 @@ extension ViewController {
 extension ViewController {
   private func bindRx() {
     bindInput()
-    bindOutput()
   }
 }
 
@@ -119,60 +97,35 @@ extension ViewController {
 
 extension ViewController {
   private func bindInput() {
-    bindDoneButton()
-    bindOrientationSegmentedControlSelectedIndex()
-    bindRatioSegmentedControlSelectedIndex()
+    bindRatioButton()
+    bindCustomizableButton()
   }
 
-  private func bindDoneButton() {
-    doneButton.rx.tap
-      .bind(to: photoCropperView.crop)
-      .disposed(by: bag)
-  }
-
-  private func bindOrientationSegmentedControlSelectedIndex() {
-    orientationSegmentedControl
+  private func bindRatioButton() {
+    ratioButton
       .rx
-      .selectedSegmentIndex
-      .skip(1)
-      .map { [weak self] index -> CGFloat in
-        guard let self = self else { return 1 }
-        let orientation = Orientation.allCases[index]
-        let ratio = Ratio.allCases[self.ratioSegmentedControl.selectedSegmentIndex]
-        let ratioValue = ratio.ratio(by: orientation)
-        return ratioValue
-      }
-      .bind(to: PhotoCropper.shared.ratio)
-      .disposed(by: bag)
-  }
-
-  private func bindRatioSegmentedControlSelectedIndex() {
-    ratioSegmentedControl
-      .rx
-      .selectedSegmentIndex
-      .skip(1)
-      .map { [weak self] index -> CGFloat in
-        guard let self = self else { return 1 }
-        let orientation = Orientation.allCases[self.orientationSegmentedControl.selectedSegmentIndex]
-        let ratio = Ratio.allCases[index]
-        let ratioValue = ratio.ratio(by: orientation)
-        return ratioValue
-      }
-      .bind(to: PhotoCropper.shared.ratio)
-      .disposed(by: bag)
-  }
-}
-
-// MARK: - Output
-
-extension ViewController {
-  private func bindOutput() {
-    photoCropperView.resultImage
-      .subscribe(onNext: { [weak self] image in
+      .tap
+      .bind(onNext: { [weak self] in
         guard let self = self else { return }
+        PhotoCropper.shared.isCustomizedSizeEnabled = false
 
-        let vc = ResultImageViewController()
-        vc.imageView.image = image
+        let vc = RatioViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+      })
+      .disposed(by: bag)
+  }
+
+  private func bindCustomizableButton() {
+    customizableButton
+      .rx
+      .tap
+      .bind(onNext: { [weak self] in
+        guard let self = self else { return }
+        PhotoCropper.shared.isCustomizedSizeEnabled = true
+        PhotoCropper.shared.hideFrameBorder = true
+        PhotoCropper.shared.appearance.edgeButtonPathWidthMultiplier = 1.0
+
+        let vc = CustomizableViewController()
         self.navigationController?.pushViewController(vc, animated: true)
       })
       .disposed(by: bag)

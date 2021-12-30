@@ -34,6 +34,11 @@ public struct PhotoCropperAppearance {
   /// Default value is `.black.withAlphaComponent(0.6)`
   public var overlayColor: UIColor = .black.withAlphaComponent(0.6)
 
+  /// The color of the edge button.
+  ///
+  /// Default value is `.white`
+  public var edgeButtonColor: UIColor = .white
+
   // MARK: - Size
 
   /// The frame border width
@@ -45,4 +50,19 @@ public struct PhotoCropperAppearance {
   ///
   /// Default value is `1.0`
   public var gridWidth: CGFloat = 1.0
+
+  /// The edge button width.
+  ///
+  /// Default value is `48.0`
+  public var edgeButtonWidth: CGFloat = 48.0
+
+  /// The edge button path width multiplier
+  ///
+  /// Default value is `0.6`
+  public var edgeButtonPathWidthMultiplier: CGFloat = 0.6
+
+  /// The edge button border width.
+  ///
+  /// Default value is `4.0`
+  public var edgeButtonBorderWidth: CGFloat = 4.0
 }
